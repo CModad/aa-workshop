@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>American Airlines Agent Workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B3C;--navy-light:#1a2d54;--red:#E31837;--white:#ffffff;
+  --g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;
+  --g400:#94a3b8;--g500:#64748b;--g600:#475569;--g700:#334155;--g800:#1e293b;--g900:#0f172a;
+  --code-bg:#1E293B;--sidebar-w:300px;
+  --sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--g50);color:var(--g800);line-height:1.7;overflow-x:hidden}
+/* Sidebar */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--navy);color:#fff;overflow-y:auto;z-index:100;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.05)}
+.sb-hdr{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.sb-logo svg{width:28px;height:28px}
+.sb-logo span{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.sb-sub{font-size:10px;color:var(--g400);text-transform:uppercase;letter-spacing:1.2px;font-weight:500}
+.sb-nav{flex:1;overflow-y:auto;padding:12px 0}
+.nav-i{display:flex;align-items:center;gap:10px;padding:9px 20px;text-decoration:none;color:var(--g300);font-size:13px;font-weight:500;transition:all .15s;border-left:3px solid transparent}
+.nav-i:hover{background:rgba(255,255,255,.05);color:#fff;border-left-color:var(--red)}
+.nav-i.active{background:rgba(255,255,255,.08);color:#fff;border-left-color:var(--red)}
+.nav-n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,.08);font-size:10px;font-weight:700;flex-shrink:0}
+.nav-i.active .nav-n{background:var(--red);color:#fff}
+.nav-i.opt .nav-n{background:rgba(227,24,55,.15);color:var(--red);border:1px dashed rgba(227,24,55,.4)}
+.nav-i.opt{opacity:.75}
+.nav-i.opt::after{content:'OPT';font-size:8px;background:rgba(227,24,55,.12);color:var(--red);padding:2px 5px;border-radius:3px;margin-left:auto;font-weight:700;letter-spacing:.5px}
+.sb-ft{padding:14px 20px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;color:var(--g500);line-height:1.5}
+/* Main */
+.main{margin-left:var(--sidebar-w);min-height:100vh}
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 50%,var(--navy) 100%);color:#fff;padding:72px 60px 56px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(227,24,55,.08) 0%,transparent 70%);border-radius:50%}
+.hero-c{position:relative;z-index:1;max-width:880px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(227,24,55,.12);border:1px solid rgba(227,24,55,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--red);margin-bottom:18px;text-transform:uppercase;letter-spacing:.8px}
+.hero h1{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.15;margin-bottom:14px;letter-spacing:-.5px}
+.hero h1 span{color:var(--red)}
+.hero-desc{font-size:16px;color:var(--g300);line-height:1.7;margin-bottom:24px;max-width:720px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:20px;margin-bottom:28px}
+.hero-mi{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--g300)}
+.hero-mi strong{color:#fff;font-weight:600}
+.hero-scenario{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:22px 26px}
+.hero-scenario h3{font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.hero-scenario p{font-size:13px;color:var(--g300);line-height:1.7;margin-bottom:8px}
+.hero-scenario p:last-child{margin-bottom:0}
+.scenario-q{font-style:italic;color:#fff !important;border-left:3px solid var(--red);padding-left:14px;margin-top:10px}
+/* Content area */
+.content{max-width:880px;margin:0 auto;padding:48px 56px 80px}
+.mod{margin-bottom:56px;scroll-margin-top:24px}
+.mod h2{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:6px;padding-bottom:10px;border-bottom:2px solid var(--g200);letter-spacing:-.3px}
+.mod h3{font-size:1.15rem;font-weight:700;color:var(--navy);margin-top:28px;margin-bottom:10px}
+.mod h4{font-size:1rem;font-weight:600;color:var(--g700);margin-top:20px;margin-bottom:8px}
+.mod p{margin-bottom:14px;color:var(--g700);font-size:15px}
+.mod ul,.mod ol{margin-bottom:14px;padding-left:22px}
+.mod li{margin-bottom:6px;color:var(--g700);font-size:15px}
+.mod li::marker{color:var(--red)}
+.mod strong{color:var(--g900);font-weight:600}
+.mod a{color:var(--red);text-decoration:none;font-weight:500}
+.mod a:hover{text-decoration:underline}
+/* Tables */
+.tw{overflow-x:auto;margin-bottom:18px;border-radius:8px;border:1px solid var(--g200)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:var(--navy)}
+thead th{padding:10px 14px;text-align:left;font-weight:600;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--g100);color:var(--g700)}
+tbody tr:hover{background:var(--g50)}
+tbody tr:last-child td{border-bottom:none}
+/* Code */
+pre{background:var(--code-bg);border-radius:10px;padding:18px 22px;margin-bottom:18px;overflow-x:auto;border:1px solid rgba(255,255,255,.05)}
+pre code{font-family:var(--mono);font-size:12.5px;line-height:1.65;color:#e2e8f0;display:block}
+code{font-family:var(--mono);font-size:.85em;background:var(--g100);padding:2px 6px;border-radius:4px;color:var(--navy);font-weight:500}
+pre code{background:transparent;padding:0;border-radius:0;font-weight:400}
+/* Blockquote */
+blockquote{border-left:4px solid var(--red);background:rgba(227,24,55,.03);padding:14px 18px;margin-bottom:18px;border-radius:0 8px 8px 0}
+blockquote p{margin-bottom:6px;font-size:14px}
+blockquote p:last-child{margin-bottom:0}
+/* Checklist */
+.cl{list-style:none;padding-left:0}
+.cl li{padding:5px 0 5px 26px;position:relative}
+.cl li::before{content:'☐';position:absolute;left:0;color:var(--red);font-size:15px}
+/* Duration badge */
+.dur{display:inline-block;background:rgba(227,24,55,.08);color:var(--red);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-left:10px;vertical-align:middle}
+/* Diagram ascii blocks */
+.dia{background:var(--g800);border-radius:10px;padding:20px;margin-bottom:18px;overflow-x:auto;border:1px solid var(--g700)}
+.dia pre{background:transparent;border:none;padding:0;margin:0}
+.dia pre code{font-size:11.5px;line-height:1.4;color:var(--g300)}
+/* Key points callout */
+.kp{background:rgba(13,27,60,.03);border:1px solid rgba(13,27,60,.1);border-radius:8px;padding:16px 20px;margin-bottom:18px}
+.kp p{margin-bottom:6px;font-size:14px}
+.kp p:last-child{margin-bottom:0}
+/* Mobile */
+@media(max-width:900px){
+  .sidebar{position:fixed;top:0;left:0;right:0;width:100%;height:auto;max-height:52px;flex-direction:row;overflow-x:auto;overflow-y:hidden;border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .sb-hdr{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:none;border-right:1px solid rgba(255,255,255,.08);white-space:nowrap;flex-shrink:0}
+  .sb-sub{display:none}
+  .sb-nav{display:flex;flex-direction:row;padding:0;align-items:center;gap:0}
+  .nav-i{padding:14px 12px;white-space:nowrap;border-left:none;border-bottom:3px solid transparent;font-size:11px;gap:6px}
+  .nav-i:hover,.nav-i.active{border-left:none;border-bottom-color:var(--red)}
+  .nav-i.opt::after{display:none}
+  .sb-ft{display:none}
+  .main{margin-left:0;margin-top:52px}
+  .hero{padding:40px 20px 32px}
+  .hero h1{font-size:1.6rem}
+  .content{padding:28px 20px 48px}
+  .mod h2{font-size:1.3rem}
+}
+@media(max-width:600px){
+  .hero-meta{flex-direction:column;gap:6px}
+  .content{padding:20px 14px 40px}
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+</style>
+</head>
+<body>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+<div class="sb-hdr">
+<div class="sb-logo">
+<svg viewBox="0 0 32 32" fill="none"><path d="M16 2L2 16l14 14 14-14L16 2z" fill="#E31837"/><path d="M16 6l-9 10 9 10 9-10L16 6z" fill="#0D1B3C"/><path d="M16 10l-5 6 5 6 5-6-5-6z" fill="#fff"/></svg>
+<span>AA Workshop</span>
+</div>
+<div class="sb-sub">Agent Development</div>
+</div>
+<nav class="sb-nav">
+<a href="#overview" class="nav-i active"><span class="nav-n">↑</span>Overview</a>
+<a href="#module-1" class="nav-i"><span class="nav-n">1</span>Kiro Setup</a>
+<a href="#module-2" class="nav-i"><span class="nav-n">2</span>Spec Planning</a>
+<a href="#module-3" class="nav-i"><span class="nav-n">3</span>Build Agent</a>
+<a href="#module-4" class="nav-i"><span class="nav-n">4</span>Test Locally</a>
+<a href="#module-5" class="nav-i"><span class="nav-n">5</span>Run Tests</a>
+<a href="#module-6" class="nav-i"><span class="nav-n">6</span>Deploy to AWS</a>
+<a href="#module-7" class="nav-i"><span class="nav-n">7</span>Gateway</a>
+<a href="#module-8" class="nav-i"><span class="nav-n">8</span>Observability</a>
+<a href="#module-9" class="nav-i opt"><span class="nav-n">9</span>Rebooking</a>
+<a href="#module-10" class="nav-i opt"><span class="nav-n">10</span>Neptune</a>
+</nav>
+<div class="sb-ft">Strands SDK + Bedrock AgentCore<br>Powered by Amazon Nova Pro</div>
+</aside>
+<!-- MAIN -->
+<main class="main">
+<!-- HERO -->
+<section class="hero" id="overview">
+<div class="hero-c">
+<div class="hero-badge">✈ Hands-On Workshop</div>
+<h1>American Airlines<br><span>Agent Workshop</span></h1>
+<p class="hero-desc">Build, test, and deploy an AI-powered Flight Operations agent using the Strands SDK and Amazon Bedrock AgentCore — all driven by Kiro's spec-driven development workflow.</p>
+<div class="hero-meta">
+<div class="hero-mi"><strong>Duration:</strong>&nbsp;2.5–3 hours core | 4 hours with extensions</div>
+<div class="hero-mi"><strong>Level:</strong>&nbsp;Intermediate</div>
+<div class="hero-mi"><strong>Stack:</strong>&nbsp;Python · Strands · Bedrock · CDK</div>
+</div>
+<div class="hero-scenario">
+<h3>The Scenario: Dallas Connection Disruption</h3>
+<p><strong>Alex Johnson</strong> is booked MIA → DFW → ORD (Miami to Chicago via Dallas). Flight AA456 (MIA→DFW) is delayed 2 hours. Alex will miss the connection to AA789 (DFW→ORD departing 15:45).</p>
+<p class="scenario-q">"My connection in Dallas is delayed. What are my rebooking options to get to Chicago?"</p>
+</div>
+</div>
+</section>
+<!-- CONTENT -->
+<div class="content">
+
+<!-- What the Agent Does -->
+<section class="mod" id="what-agent-does">
+<h2>What Your Agent Will Do</h2>
+<p>By the end of this workshop, your agent handles the Dallas disruption in a single conversational turn:</p>
+<ol>
+<li><strong>Check status</strong> — confirms AA456 is delayed, arrival now 16:30</li>
+<li><strong>Detect the missed connection</strong> — AA789 departs 15:45, connection impossible</li>
+<li><strong>Search alternative routes</strong> — traverses the flight network <em>excluding DFW</em> to find paths through other hubs</li>
+<li><strong>Present options</strong> — "You can take AA912 direct MIA→ORD at 17:00, or route through Charlotte: AA234 MIA→CLT + AA567 CLT→ORD"</li>
+<li><strong>Check availability</strong> — confirms open seats on each alternative</li>
+</ol>
+<div class="kp">
+<p><strong>Why this matters:</strong> A simple database lookup can only find direct flights. The <strong>knowledge graph</strong> enables the agent to discover multi-hop alternatives through other hubs — the kind of intelligent routing that differentiates a GenAI agent from a basic search API.</p>
+</div>
+
+<h3>What Makes This Possible</h3>
+<div class="tw"><table>
+<thead><tr><th>Capability</th><th>How We Build It</th></tr></thead>
+<tbody>
+<tr><td>Natural language understanding</td><td>Amazon Nova Pro via Bedrock</td></tr>
+<tr><td>Real-time flight data</td><td>Custom tools with <code>@tool</code> decorator</td></tr>
+<tr><td>Multi-hop route reasoning</td><td>Knowledge graph (NetworkX locally → Neptune in production)</td></tr>
+<tr><td>Connection-aware rebooking</td><td>Graph traversal with hub exclusion</td></tr>
+<tr><td>Production deployment</td><td>AgentCore Runtime with Gateway tool governance</td></tr>
+<tr><td>Operational visibility</td><td>AgentCore Observability (traces showing each tool call)</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<!-- Learning Objectives -->
+<section class="mod" id="learning-objectives">
+<h2>Learning Objectives</h2>
+<p>By the end of this workshop, you will be able to:</p>
+<ul>
+<li>Set up Kiro with Powers for AI agent development</li>
+<li>Use spec-driven development (requirements → design → tasks) to plan before coding</li>
+<li>Build agents with the Strands SDK using <code>@tool</code> decorated functions</li>
+<li>Use a local knowledge graph (NetworkX) for multi-hop reasoning in flight disruption scenarios</li>
+<li>Run agents locally with the dual-mode entrypoint pattern</li>
+<li>Deploy agents to Amazon Bedrock AgentCore Runtime via CDK</li>
+<li>Understand AgentCore Gateway tool governance and access policies</li>
+<li>Monitor deployed agents using AgentCore Observability (sessions, traces, spans)</li>
+<li>(Optional) Transition from a local graph to Amazon Neptune for production-scale knowledge graph queries</li>
+</ul>
+</section>
+
+<!-- Prerequisites -->
+<section class="mod" id="prerequisites">
+<h2>Prerequisites</h2>
+<p>Before the workshop, ensure you have:</p>
+<ul class="cl">
+<li><strong>Python 3.11+</strong> installed (<code>python --version</code>)</li>
+<li><strong>Node.js 20+</strong> installed (for CDK CLI: <code>node --version</code>)</li>
+<li><strong>AWS CLI</strong> configured with valid credentials (<code>aws sts get-caller-identity</code>)</li>
+<li><strong>Amazon Bedrock model access</strong> enabled for Amazon Nova Pro in your target region</li>
+<li><strong>Kiro IDE</strong> installed and signed in</li>
+<li><strong>uv</strong> or <strong>pip</strong> available for Python package management</li>
+<li><strong>AWS CDK CLI</strong> installed (<code>npm install -g aws-cdk</code>)</li>
+</ul>
+</section>
+
+<!-- MODULE 1 -->
+<section class="mod" id="module-1">
+<h2>Module 1: Kiro Environment Setup <span class="dur">15 min</span></h2>
+
+<h3>1.1 Install Kiro Powers</h3>
+<p>Open the Kiro command palette and install these three Powers:</p>
+<div class="tw"><table>
+<thead><tr><th>Power</th><th>What it provides</th></tr></thead>
+<tbody>
+<tr><td><code>aws-agentcore</code></td><td>AgentCore Runtime, Gateway, and observability guidance</td></tr>
+<tr><td><code>strands</code></td><td>Strands SDK documentation, tool patterns, and agent design</td></tr>
+<tr><td><code>cloud-architect</code></td><td>AWS service docs, CDK patterns, pricing, and regional availability</td></tr>
+</tbody>
+</table></div>
+<p>To install each power:</p>
+<ol>
+<li>Open the Powers panel in the Kiro sidebar</li>
+<li>Search for the power name</li>
+<li>Click Install</li>
+<li>Verify it appears as "Active" before proceeding</li>
+</ol>
+
+<h3>1.2 Open the Workshop Project</h3>
+<pre><code>cd aa-workshop-agent
+code .  # or open in Kiro directly</code></pre>
+
+<h3>1.3 Install Python Dependencies</h3>
+<pre><code>uv sync
+# or
+pip install -e .</code></pre>
+<p>This installs all pinned dependencies from <code>pyproject.toml</code> including <code>strands-agents</code>, <code>fastapi</code>, <code>uvicorn</code>, and <code>aws-cdk-lib</code>.</p>
+
+<h3>1.4 Verify AWS Access</h3>
+<pre><code>aws sts get-caller-identity
+aws bedrock list-foundation-models --query "modelSummaries[?contains(modelId, 'nova')]" --output table</code></pre>
+<p>You should see your account ID and at least one Nova model listed.</p>
+</section>
+
+<!-- MODULE 2 -->
+<section class="mod" id="module-2">
+<h2>Module 2: Spec-Driven Planning <span class="dur">30 min</span></h2>
+<p>In this module, you'll use Kiro's spec workflow to plan the agent before writing code. This demonstrates how spec-driven development keeps you aligned with requirements throughout implementation.</p>
+
+<h3>2.1 Review the Requirements</h3>
+<p>Open <code>.kiro/specs/aa-workshop-agent/requirements.md</code> in Kiro.</p>
+<p>This document defines:</p>
+<ul>
+<li>The Flight Operations Agent and its tools</li>
+<li>The in-memory data store backed by JSON</li>
+<li>The knowledge graph for multi-hop reasoning</li>
+<li>The dual-mode entrypoint pattern</li>
+<li>The CLI interface for testing</li>
+<li>AgentCore Gateway integration</li>
+<li>Deployment and observability requirements</li>
+</ul>
+<p>Take 5 minutes to read through the requirements. Note how each requirement has:</p>
+<ul>
+<li>A user story explaining the "who" and "why"</li>
+<li>Acceptance criteria in EARS format (WHEN/THE/SHALL) that are testable</li>
+</ul>
+
+<h3>2.2 Review the Technical Design</h3>
+<p>Open <code>.kiro/specs/aa-workshop-agent/design.md</code>.</p>
+<p>This was generated from the requirements by Kiro. It includes:</p>
+<ul>
+<li>Architecture diagrams (system overview, dual-mode pattern, data flow sequence)</li>
+<li>Component specifications (agent, tools, graph client, data store, entrypoints)</li>
+<li>Data models (<code>flights.json</code> structure, <code>routes.json</code> graph schema)</li>
+<li>Interface contracts (HTTP /invocations + /ping, tool signatures, graph client protocol)</li>
+<li>8 correctness properties that our tests will validate</li>
+</ul>
+<p>Notice how the design traces directly to requirements — every component exists because a requirement demanded it.</p>
+
+<h3>2.3 Review the Task List</h3>
+<p>Open <code>.kiro/specs/aa-workshop-agent/tasks.md</code>.</p>
+<p>This was generated from the design by Kiro. It breaks the work into 15 ordered tasks with dependencies. Key points:</p>
+<ul>
+<li>Tasks are grouped into parallel execution "waves"</li>
+<li>Each task references specific requirements for traceability</li>
+<li>Property-based tests are interleaved with implementation (test what you build, when you build it)</li>
+<li>Checkpoints ensure we verify before moving on</li>
+</ul>
+
+<h3>2.4 Execute Scaffolding Tasks with Kiro</h3>
+<p>Now let's see Kiro generate code. In the tasks panel:</p>
+<ol>
+<li>Click <strong>Start task</strong> on Task 1.1 (pyproject.toml) — Kiro creates the dependency file</li>
+<li>Click <strong>Start task</strong> on Task 1.2 (directory structure) — Kiro creates the folders</li>
+<li>Click <strong>Start task</strong> on Task 2.1 (flights.json) — Kiro generates the test data including the Dallas disruption scenario</li>
+<li>Click <strong>Start task</strong> on Task 2.2 (routes.json) — Kiro generates the route graph</li>
+</ol>
+<p>Review each generated file. These are the <strong>infrastructure</strong> files that support the learning — not the learning itself.</p>
+
+<blockquote>
+<p><strong>Key takeaway:</strong> In 5 minutes, Kiro generated a project skeleton with realistic test data, all traced back to the requirements. This is the acceleration that spec-driven development provides.</p>
+</blockquote>
+</section>
+
+<!-- MODULE 3 -->
+<section class="mod" id="module-3">
+<h2>Module 3: Build the Agent <span class="dur">45 min</span></h2>
+<p>In this module, you'll write the core agent code yourself — the tools, graph client, and agent definition. This is the learning. The data layer (Step 3.1) can be generated by Kiro, but we'll write the interesting parts by hand to understand how they work.</p>
+
+<h3>3.1 Create the Data Store (Kiro-assisted)</h3>
+<p>Let Kiro generate this from the task list — click <strong>Start task</strong> on Task 3.1, or write it yourself:</p>
+<p>Create <code>src/data_store.py</code> — this loads flight data from JSON at startup:</p>
+<pre><code>import json
+from pathlib import Path
+
+_DATA_DIR = Path(__file__).parent.parent / "data"
+
+
+def _load_json(filename: str) -&gt; dict:
+    with open(_DATA_DIR / filename) as f:
+        return json.load(f)
+
+
+# Load once at module import time — no file I/O per tool call
+FLIGHTS = _load_json("flights.json")</code></pre>
+<p>Verify the data file exists:</p>
+<pre><code>cat data/flights.json | python -m json.tool | head -20</code></pre>
+
+<h3>3.2 Define Custom Tools (write this yourself)</h3>
+<p>This is the core learning — understanding how <code>@tool</code> functions work. Create <code>src/tools.py</code> with three tools:</p>
+<pre><code>from strands import tool
+from src.data_store import FLIGHTS
+
+
+@tool
+def get_flight_status(flight_number: str, date: str) -&gt; dict:
+    """Get the current status of a flight.
+
+    Args:
+        flight_number: The flight number (e.g., AA1234).
+        date: The flight date in YYYY-MM-DD format.
+
+    Returns:
+        Flight status including departure time, arrival time,
+        origin, destination, gate, and status.
+    """
+    if not flight_number or not flight_number.upper().startswith("AA"):
+        return {"error": "invalid_parameter", "parameter": "flight_number",
+                "expected": "AA followed by 1-4 digits"}
+
+    key = f"{flight_number.upper()}_{date}"
+    flight = FLIGHTS.get("flights", {}).get(key)
+    if not flight:
+        return {"error": "not_found",
+                "message": f"No flight {flight_number} found for {date}"}
+
+    return flight
+
+
+@tool
+def search_flights(origin: str, destination: str, date: str) -&gt; dict:
+    """Search for flights between two airports on a specific date.
+
+    Args:
+        origin: The origin airport code (e.g., DFW).
+        destination: The destination airport code (e.g., JFK).
+        date: The flight date in YYYY-MM-DD format.
+
+    Returns:
+        List of matching flights with status and available seat count.
+    """
+    results = []
+    for key, flight in FLIGHTS.get("flights", {}).items():
+        if (flight.get("origin") == origin.upper()
+            and flight.get("destination") == destination.upper()
+            and flight.get("date") == date):
+            results.append(flight)
+
+    if not results:
+        return {"error": "not_found",
+                "message": f"No flights from {origin} to {destination} on {date}"}
+
+    return {"flights": results, "count": len(results)}
+
+
+@tool
+def check_seat_availability(flight_number: str) -&gt; dict:
+    """Check available seats on a specific flight.
+
+    Args:
+        flight_number: The flight number (e.g., AA1234).
+
+    Returns:
+        Available seats grouped by class (first, business, economy).
+    """
+    if not flight_number or not flight_number.upper().startswith("AA"):
+        return {"error": "invalid_parameter", "parameter": "flight_number",
+                "expected": "AA followed by 1-4 digits"}
+
+    seats = FLIGHTS.get("seats", {}).get(flight_number.upper())
+    if not seats:
+        return {"error": "not_found",
+                "message": f"No seat data for flight {flight_number}"}
+
+    return {"flight_number": flight_number.upper(), "seats": seats}</code></pre>
+
+<div class="kp">
+<p><strong>Key points:</strong></p>
+<p>• Each tool has typed parameters and a Google-style docstring<br>
+• The docstring is what the LLM sees as the tool description<br>
+• Errors return structured dicts, not exceptions</p>
+</div>
+
+<h3>3.3 Build the Knowledge Graph Client (write this yourself)</h3>
+<p>This is where you learn how a graph enables multi-hop reasoning. Create <code>src/graph_client.py</code> — this models the flight network as a graph:</p>
+<pre><code>import json
+from pathlib import Path
+import networkx as nx
+
+_DATA_DIR = Path(__file__).parent.parent / "data"
+
+
+def _load_routes() -&gt; dict:
+    with open(_DATA_DIR / "routes.json") as f:
+        return json.load(f)
+
+
+class LocalGraphClient:
+    """NetworkX-based local graph for flight route traversal."""
+
+    def __init__(self):
+        data = _load_routes()
+        self.graph = nx.DiGraph()
+
+        # Add airport nodes
+        for airport in data["airports"]:
+            self.graph.add_node(airport["code"], **airport)
+
+        # Add route edges
+        for route in data["routes"]:
+            self.graph.add_edge(
+                route["origin"],
+                route["destination"],
+                flight_number=route["flight_number"],
+                departure_time=route["departure_time"],
+                arrival_time=route["arrival_time"],
+                status=route["status"],
+                date=route["date"],
+            )
+
+    def find_connections(self, origin: str, destination: str,
+                         max_stops: int = 1) -&gt; list:
+        """Find all routes from origin to destination
+        with up to max_stops intermediate airports."""
+        paths = []
+        for path in nx.all_simple_paths(
+            self.graph, origin, destination, cutoff=max_stops + 1
+        ):
+            route_details = []
+            for i in range(len(path) - 1):
+                edge_data = self.graph.edges[path[i], path[i + 1]]
+                route_details.append({
+                    "from": path[i], "to": path[i + 1], **edge_data,
+                })
+            paths.append({"stops": len(path) - 2, "segments": route_details})
+        return paths
+
+    def find_alternatives(self, origin: str, destination: str,
+                          exclude_hub: str, max_stops: int = 1) -&gt; list:
+        """Find routes that avoid a specific hub."""
+        all_paths = self.find_connections(origin, destination, max_stops)
+        return [p for p in all_paths
+                if not any(seg["from"] == exclude_hub or seg["to"] == exclude_hub
+                           for seg in p["segments"][1:])]
+
+
+# Initialize once at module load
+graph_client = LocalGraphClient()</code></pre>
+
+<p>This is the <strong>same pattern as the dual-mode entrypoint</strong> — the <code>find_connections</code> and <code>find_alternatives</code> methods define the interface. In production, you'd swap <code>LocalGraphClient</code> for a <code>NeptuneGraphClient</code> that runs the same queries via Gremlin/openCypher against Amazon Neptune.</p>
+
+<h3>3.4 Add the Connection Finder Tool (write this yourself)</h3>
+<p>This is the tool that ties the graph to the agent. Add this to <code>src/tools.py</code>:</p>
+<pre><code>from src.graph_client import graph_client
+
+
+@tool
+def find_connections(origin: str, destination: str, date: str,
+                     exclude_hub: str = "") -&gt; dict:
+    """Find available flight connections between two airports,
+    optionally excluding a hub.
+
+    Use this when a customer's connection is disrupted and needs
+    alternative routing. This traverses the flight network graph
+    to find multi-hop alternatives.
+
+    Args:
+        origin: The origin airport code (e.g., MIA).
+        destination: The final destination airport code (e.g., ORD).
+        date: The travel date in YYYY-MM-DD format.
+        exclude_hub: Optional airport to exclude from routing
+                     (e.g., DFW if connection there is disrupted).
+
+    Returns:
+        Available connection options with flight details for each leg.
+    """
+    if exclude_hub:
+        routes = graph_client.find_alternatives(
+            origin.upper(), destination.upper(), exclude_hub.upper())
+    else:
+        routes = graph_client.find_connections(origin.upper(), destination.upper())
+
+    if not routes:
+        return {"error": "not_found",
+                "message": f"No connections found from {origin} to {destination}"}
+
+    return {"connections": routes, "count": len(routes),
+            "excluding": exclude_hub or "none"}</code></pre>
+
+<div class="kp">
+<p><strong>Why a graph?</strong> A simple <code>search_flights</code> can only find direct flights. The <code>find_connections</code> tool traverses the route network to discover multi-hop alternatives — exactly what's needed when a customer says "my Dallas connection is delayed, what are my options?"</p>
+</div>
+
+<h3>3.5 Create the Agent (write this yourself)</h3>
+<p>Now wire everything together. Create <code>src/agent.py</code>:</p>
+<pre><code>from strands import Agent
+from strands.models import BedrockModel
+from src.tools import (get_flight_status, search_flights,
+                       check_seat_availability, find_connections)
+
+model = BedrockModel(model_id="us.amazon.nova-pro-v1:0")
+
+SYSTEM_PROMPT = """You are an American Airlines flight operations assistant.
+You help customers with:
+- Checking flight status (departures, arrivals, delays, cancellations)
+- Searching for available flights between airports
+- Checking seat availability on specific flights
+- Finding alternative connections when a flight is disrupted
+
+Always use the available tools to look up real data. Never make up flight
+information. When a customer reports a disrupted connection, use
+find_connections to search for alternative routing options, potentially
+excluding the disrupted hub airport.
+When presenting results, format them clearly for the customer.
+Use airport codes (DFW, JFK, etc.) in your tool calls even if the
+customer uses city names.
+"""
+
+agent = Agent(
+    model=model,
+    tools=[get_flight_status, search_flights,
+           check_seat_availability, find_connections],
+    system_prompt=SYSTEM_PROMPT,
+)</code></pre>
+<p><strong>Note:</strong> This file contains zero conditional logic about deployment mode. It's imported unchanged by both entrypoints.</p>
+</section>
+
+<!-- MODULE 4 -->
+<section class="mod" id="module-4">
+<h2>Module 4: Test Locally <span class="dur">20 min</span></h2>
+
+<h3>4.1 Create the Local Entrypoint</h3>
+<p>Create <code>src/entrypoint_local.py</code>:</p>
+<pre><code>from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from src.agent import agent
+import uvicorn
+
+app = FastAPI(title="Flight Ops Agent - Local")
+
+
+@app.post("/invocations")
+async def invoke(request: Request):
+    body = await request.json()
+    prompt = body.get("prompt", "")
+    response = agent(prompt)
+    return JSONResponse({"response": response.message["content"][0]["text"]})
+
+
+@app.get("/ping")
+async def ping():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8001)</code></pre>
+
+<h3>4.2 Start the Agent Locally</h3>
+<pre><code>RUNTIME_MODE=local python -m src.entrypoint_local</code></pre>
+<p>You should see:</p>
+<pre><code>INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)</code></pre>
+
+<h3>4.3 Test with the CLI</h3>
+<p>In a new terminal:</p>
+<pre><code>python cli.py</code></pre>
+<p>Try these queries:</p>
+<pre><code>&gt; What's the status of flight AA456 on 2025-07-15?
+&gt; Find me flights from DFW to JFK tomorrow
+&gt; What seats are available on AA789?
+&gt; My flight AA456 from Miami to Dallas is delayed 2 hours.
+  I'm going to miss my connection to Chicago. What are my options?
+&gt; exit</code></pre>
+<p>Watch the CLI output — you'll see tool invocations (tool name + parameters) before each response. For the connection disruption query, notice how the agent:</p>
+<ol>
+<li>Checks the status of AA456 (confirms the delay)</li>
+<li>Uses <code>find_connections</code> to search MIA→ORD alternatives excluding DFW</li>
+<li>Checks seat availability on the recommended alternatives</li>
+</ol>
+<p>This multi-step reasoning is powered by the knowledge graph — a simple flight search couldn't find one-stop alternatives through other hubs.</p>
+
+<h3>4.4 Test with curl</h3>
+<pre><code># Health check
+curl http://localhost:8001/ping
+
+# Query the agent
+curl -X POST http://localhost:8001/invocations \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "What is the status of flight AA1234 on 2025-07-15?"}'</code></pre>
+</section>
+
+<!-- MODULE 5 -->
+<section class="mod" id="module-5">
+<h2>Module 5: Run Tests <span class="dur">15 min</span></h2>
+
+<h3>5.1 Run Unit Tests</h3>
+<pre><code>pytest tests/ -v</code></pre>
+<p>Tests validate:</p>
+<ul>
+<li>Each tool returns correct data for valid inputs</li>
+<li>Tools return structured errors for invalid inputs</li>
+<li>The data store loads successfully from JSON</li>
+</ul>
+
+<h3>5.2 Review Test Patterns</h3>
+<p>Open <code>tests/test_tools.py</code> and observe:</p>
+<ul>
+<li>Tools are tested as plain Python functions (no agent needed)</li>
+<li>Edge cases are covered (invalid flight numbers, missing data)</li>
+<li>Return structures are validated</li>
+</ul>
+</section>
+
+<!-- MODULE 6 -->
+<section class="mod" id="module-6">
+<h2>Module 6: Deploy to AWS <span class="dur">30 min</span></h2>
+
+<h3>6.1 Create the AWS Entrypoint</h3>
+<p>Create <code>src/entrypoint_aws.py</code>:</p>
+<pre><code>from bedrock_agentcore.runtime import BedrockAgentCoreApp
+from src.agent import agent
+
+app = BedrockAgentCoreApp()
+
+
+@app.entrypoint
+def invoke(payload):
+    prompt = payload.get("prompt", "")
+    response = agent(prompt)
+    return response.message["content"][0]["text"]
+
+
+@app.ping
+def health():
+    return "healthy"
+
+
+if __name__ == "__main__":
+    app.run()</code></pre>
+<p><strong>Compare with the local entrypoint</strong> — the agent import and invocation logic is identical. Only the transport wrapper changes.</p>
+
+<h3>6.2 Bootstrap CDK (if first time)</h3>
+<pre><code>cd deployment
+cdk bootstrap</code></pre>
+
+<h3>6.3 Deploy</h3>
+<pre><code>cdk deploy</code></pre>
+<p>This provisions:</p>
+<ul>
+<li>AgentCore Runtime agent (1 vCPU, 2 GB memory)</li>
+<li>AgentCore Gateway with tool registrations under "flight-operations" target</li>
+<li>IAM roles with Bedrock invoke and observability permissions</li>
+<li>All resources tagged: <code>project=aa-workshop-agent</code>, <code>tier=workshop</code></li>
+</ul>
+<p>Deployment takes approximately 5-10 minutes. When complete, you'll see:</p>
+<pre><code>Outputs:
+AaWorkshopStack.AgentEndpointUrl = https://runtime.agentcore.us-east-1.amazonaws.com/agents/...</code></pre>
+
+<h3>6.4 Test the Deployed Agent</h3>
+<pre><code># Using the endpoint URL from the deploy output
+aws bedrock-agentcore invoke-agent-runtime \
+  --agent-runtime-arn "&lt;YOUR_AGENT_RUNTIME_ARN&gt;" \
+  --runtime-session-id "workshop-test-001" \
+  --payload '{"prompt": "What flights go from DFW to LAX?"}'</code></pre>
+<p>You should get the same quality response as your local agent — same code, different transport.</p>
+</section>
+
+<!-- MODULE 7 -->
+<section class="mod" id="module-7">
+<h2>Module 7: Explore Gateway <span class="dur">20 min</span></h2>
+
+<h3>7.1 View Tool Registrations</h3>
+<p>In the AWS Console, navigate to <strong>Bedrock → AgentCore → Gateway</strong> and find the "flight-operations" target. You'll see your three tools registered with MCP-compliant schemas:</p>
+<ul>
+<li><code>get_flight_status</code> — with inputSchema defining flight_number and date</li>
+<li><code>search_flights</code> — with inputSchema defining origin, destination, and date</li>
+<li><code>check_seat_availability</code> — with inputSchema defining flight_number</li>
+</ul>
+
+<h3>7.2 Understand Access Policies</h3>
+<p>The Flight_Ops_Agent has access only to the "flight-operations" target. If you later deploy the optional Rebooking Agent, it will have access to both "flight-operations" and "passenger-services" — demonstrating least-privilege tool governance.</p>
+
+<h3>7.3 Key Takeaway</h3>
+<p>Locally, tools are registered directly with the agent via the <code>tools=[...]</code> parameter. In production, AgentCore Gateway:</p>
+<ul>
+<li>Provides centralized tool discovery via MCP protocol</li>
+<li>Enforces access policies (which agent can call which tools)</li>
+<li>Enables tool sharing across multiple agents</li>
+<li>Adds an audit trail for tool invocations</li>
+</ul>
+</section>
+
+<!-- MODULE 8 -->
+<section class="mod" id="module-8">
+<h2>Module 8: Observe Your Agent <span class="dur">15 min</span></h2>
+
+<h3>8.1 Prerequisites</h3>
+<p>Ensure CloudWatch Transaction Search is enabled (one-time per account):</p>
+<ol>
+<li>Open the <strong>CloudWatch Console</strong></li>
+<li>Navigate to <strong>Settings → Account → X-Ray traces</strong></li>
+<li>Under <strong>Transaction Search</strong>, click <strong>View settings</strong></li>
+<li>Click <strong>Edit</strong> → <strong>Enable Transaction Search</strong></li>
+<li>Select <strong>For X-Ray users</strong> and set sampling to 100%</li>
+<li>Click <strong>Save</strong> and wait until "Ingest OpenTelemetry spans" shows <strong>Enabled</strong></li>
+</ol>
+
+<h3>8.2 Generate Telemetry</h3>
+<p>Invoke your deployed agent 3-5 times with different queries to generate telemetry data:</p>
+<pre><code># Query 1: Flight status
+aws bedrock-agentcore invoke-agent-runtime \
+  --agent-runtime-arn "&lt;YOUR_ARN&gt;" \
+  --runtime-session-id "obs-demo-001" \
+  --payload '{"prompt": "Status of AA1234 on 2025-07-15?"}'
+
+# Query 2: Flight search
+aws bedrock-agentcore invoke-agent-runtime \
+  --agent-runtime-arn "&lt;YOUR_ARN&gt;" \
+  --runtime-session-id "obs-demo-002" \
+  --payload '{"prompt": "Find flights from MIA to ORD on 2025-07-20"}'
+
+# Query 3: Seat check
+aws bedrock-agentcore invoke-agent-runtime \
+  --agent-runtime-arn "&lt;YOUR_ARN&gt;" \
+  --runtime-session-id "obs-demo-003" \
+  --payload '{"prompt": "What seats are open on AA5678?"}'</code></pre>
+<p>Wait 2-3 minutes for telemetry to propagate.</p>
+
+<h3>8.3 View Session Metrics</h3>
+<ol>
+<li>Open <strong>CloudWatch Console → Generative AI Observability</strong></li>
+<li>Find your agent in the dashboard</li>
+<li>Observe: <strong>Invocation count</strong>, <strong>Average latency</strong>, <strong>Error rate</strong></li>
+</ol>
+
+<h3>8.4 Drill Into a Trace</h3>
+<ol>
+<li>Click on a specific invocation to view its trace</li>
+<li>The trace shows the full execution path: User prompt → Bedrock LLM inference → Tool invocation(s) → Final response</li>
+<li>Each step shows timing as a span</li>
+</ol>
+
+<h3>8.5 Exercise: Find the Slowest Tool Call</h3>
+<p>Look at a trace that involved multiple tool calls. Identify:</p>
+<ul>
+<li>Which span represents the LLM inference?</li>
+<li>Which span represents the tool execution?</li>
+<li>Which operation took the longest?</li>
+</ul>
+<p>This is exactly how you'd debug a slow agent response in production — traces pinpoint whether latency comes from the model, from tool execution, or from data retrieval.</p>
+
+<h3>8.6 Key Takeaway: The Observability Hierarchy</h3>
+<div class="tw"><table>
+<thead><tr><th>Level</th><th>What you see</th><th>Use it for</th></tr></thead>
+<tbody>
+<tr><td><strong>Session</strong></td><td>Full conversation metrics</td><td>Usage patterns, high-level health</td></tr>
+<tr><td><strong>Trace</strong></td><td>Single request lifecycle</td><td>Debugging a specific invocation</td></tr>
+<tr><td><strong>Span</strong></td><td>Individual operations</td><td>Performance optimization, bottleneck ID</td></tr>
+</tbody>
+</table></div>
+<p>AgentCore Runtime provides all of this automatically — no custom instrumentation needed for agents deployed on Runtime.</p>
+</section>
+
+<!-- MODULE 9 -->
+<section class="mod" id="module-9">
+<h2>Module 9 (Optional): Rebooking Agent <span class="dur">40 min</span></h2>
+<p>If you finish early, extend the workshop with a second agent demonstrating multi-agent patterns and distinct tool permissions.</p>
+
+<h3>9.1 Add Passenger Tools</h3>
+<p>Create <code>src/rebooking_tools.py</code> with two additional tools:</p>
+<ul>
+<li><code>get_booking</code> — looks up a passenger booking by PNR code</li>
+<li><code>update_booking</code> — reassigns a passenger to a new flight and seat</li>
+</ul>
+
+<h3>9.2 Create the Rebooking Agent</h3>
+<p>Create <code>src/rebooking_agent.py</code> — this agent uses all five tools (3 flight tools + 2 passenger tools) to handle rebooking requests like:</p>
+<blockquote>
+<p>"My flight AA1234 was cancelled. Can you rebook me on another DFW to JFK flight today? My PNR is ABC123."</p>
+</blockquote>
+
+<h3>9.3 Run Locally</h3>
+<p>Start the Rebooking Agent on port 8002 alongside the Flight Ops Agent on 8001. Test rebooking scenarios via the CLI.</p>
+
+<h3>9.4 Deploy with Distinct Permissions</h3>
+<p>Update the CDK stack to deploy both agents with separate Gateway access policies:</p>
+<ul>
+<li><strong>Flight_Ops_Agent</strong> → access to "flight-operations" target only</li>
+<li><strong>Rebooking_Agent</strong> → access to both "flight-operations" and "passenger-services" targets</li>
+</ul>
+<p>This demonstrates least-privilege tool governance in a multi-agent system.</p>
+</section>
+
+<!-- MODULE 10 -->
+<section class="mod" id="module-10">
+<h2>Module 10 (Optional): Local Graph → Amazon Neptune <span class="dur">30 min</span></h2>
+<p>This extension demonstrates how the same graph queries that run locally on NetworkX transition to Amazon Neptune for production — mirroring the dual-mode entrypoint pattern but for the data layer.</p>
+
+<h3>10.1 Understanding the Pattern</h3>
+<p>In the core workshop, you built <code>graph_client.py</code> with a <code>LocalGraphClient</code> class using NetworkX. The key insight: <strong>the <code>find_connections</code> tool doesn't know or care whether the graph is NetworkX or Neptune.</strong> It calls <code>graph_client.find_connections()</code> — and that's it.</p>
+<div class="dia"><pre><code>Local Development          Production
+┌─────────────────┐       ┌─────────────────┐
+│  find_connections│       │  find_connections│
+│      (tool)      │       │      (tool)      │
+└────────┬─────────┘       └────────┬─────────┘
+         │                          │
+         ▼                          ▼
+┌─────────────────┐       ┌─────────────────┐
+│ LocalGraphClient │       │NeptuneGraphClient│
+│   (NetworkX)     │       │  (Gremlin/OC)    │
+└─────────────────┘       └─────────────────┘
+         │                          │
+         ▼                          ▼
+┌─────────────────┐       ┌─────────────────┐
+│  routes.json     │       │ Amazon Neptune   │
+│  (in-memory)     │       │  (managed DB)    │
+└─────────────────┘       └─────────────────┘</code></pre></div>
+
+<h3>10.2 Create the Neptune Graph Client</h3>
+<p>Add a <code>NeptuneGraphClient</code> to <code>src/graph_client.py</code>:</p>
+<pre><code>from gremlin_python.driver import client as gremlin_client
+from gremlin_python.driver.serializer import GraphSONSerializersV2d0
+import os
+
+
+class NeptuneGraphClient:
+    """Amazon Neptune graph client using Gremlin
+    for flight route traversal."""
+
+    def __init__(self):
+        endpoint = os.environ["NEPTUNE_ENDPOINT"]
+        self.client = gremlin_client.Client(
+            f"wss://{endpoint}:8182/gremlin",
+            "g",
+            message_serializer=GraphSONSerializersV2d0(),
+        )
+
+    def find_connections(self, origin: str, destination: str,
+                         max_stops: int = 1) -&gt; list:
+        """Find routes via Gremlin traversal."""
+        query = (
+            f"g.V('{origin}')"
+            f".repeat(out('flies_to').simplePath())"
+            f".until(hasId('{destination}')"
+            f".or().loops().is(gte({max_stops + 1})))"
+            f".hasId('{destination}')"
+            f".path().by(valueMap(true))"
+        )
+        results = self.client.submit(query).all().result()
+        return self._format_paths(results)
+
+    def find_alternatives(self, origin: str, destination: str,
+                          exclude_hub: str, max_stops: int = 1) -&gt; list:
+        """Find routes avoiding a specific hub via Gremlin."""
+        query = (
+            f"g.V('{origin}')"
+            f".repeat(out('flies_to')"
+            f".not(hasId('{exclude_hub}')).simplePath())"
+            f".until(hasId('{destination}')"
+            f".or().loops().is(gte({max_stops + 1})))"
+            f".hasId('{destination}')"
+            f".path().by(valueMap(true))"
+        )
+        results = self.client.submit(query).all().result()
+        return self._format_paths(results)
+
+
+# Select client based on environment
+def get_graph_client():
+    if os.environ.get("GRAPH_BACKEND") == "neptune":
+        return NeptuneGraphClient()
+    return LocalGraphClient()
+
+
+graph_client = get_graph_client()</code></pre>
+
+<h3>10.3 Deploy Neptune via CDK</h3>
+<p>Add a Neptune Serverless cluster to the CDK stack:</p>
+<pre><code>from aws_cdk import aws_neptune as neptune
+
+# Neptune Serverless cluster for the knowledge graph
+graph_cluster = neptune.CfnDBCluster(
+    self, "WorkshopGraphCluster",
+    db_cluster_identifier="aa-workshop-graph",
+    engine_version="1.3.2.0",
+    serverless_scaling_configuration=neptune.CfnDBCluster
+      .ServerlessScalingConfigurationProperty(
+        min_capacity=2,
+        max_capacity=8,
+    ),
+)</code></pre>
+<p>Deploy:</p>
+<pre><code>cd deployment
+cdk deploy --context graph_backend=neptune</code></pre>
+
+<h3>10.4 Load Graph Data into Neptune</h3>
+<p>Use the bulk loader or Gremlin inserts to populate Neptune with the same data from <code>routes.json</code>:</p>
+<pre><code># Load airports as vertices
+for airport in routes_data["airports"]:
+    client.submit(
+        f"g.addV('airport').property(id, '{airport['code']}')"
+        f".property('name', '{airport['name']}')"
+    )
+
+# Load routes as edges
+for route in routes_data["routes"]:
+    client.submit(
+        f"g.V('{route['origin']}').addE('flies_to')"
+        f".to(V('{route['destination']}'))"
+        f".property('flight_number', '{route['flight_number']}')"
+        f".property('departure_time', '{route['departure_time']}')"
+    )</code></pre>
+
+<h3>10.5 Test the Same Scenario on Neptune</h3>
+<p>Run the connection disruption query against the Neptune-backed agent:</p>
+<pre><code>GRAPH_BACKEND=neptune python cli.py
+&gt; My connection in Dallas is delayed. I'm flying from Miami to Chicago.
+  What are my options?</code></pre>
+<p>You should get the <strong>same results</strong> as the local graph — the agent logic, tool interface, and response format are identical. Only the data layer changed.</p>
+
+<h3>10.6 Key Takeaway: The Data Layer Pattern</h3>
+<div class="tw"><table>
+<thead><tr><th>Layer</th><th>Local</th><th>Production</th></tr></thead>
+<tbody>
+<tr><td>Agent logic</td><td><code>agent.py</code></td><td><code>agent.py</code> (unchanged)</td></tr>
+<tr><td>Transport</td><td>FastAPI/uvicorn</td><td>AgentCore Runtime</td></tr>
+<tr><td>Tool interface</td><td><code>find_connections</code> tool</td><td><code>find_connections</code> tool (unchanged)</td></tr>
+<tr><td>Graph backend</td><td>NetworkX (in-memory)</td><td>Amazon Neptune (managed)</td></tr>
+<tr><td>Data source</td><td><code>routes.json</code></td><td>Neptune bulk load / real-time feeds</td></tr>
+</tbody>
+</table></div>
+<p>This is the <strong>same separation of concerns</strong> applied twice:</p>
+<ol>
+<li><strong>Compute:</strong> dual-mode entrypoint (local ↔ AgentCore Runtime)</li>
+<li><strong>Data:</strong> graph client abstraction (NetworkX ↔ Neptune)</li>
+</ol>
+<p>In production, Neptune provides scalability to billions of relationships, ACID transactions, Bedrock Knowledge Bases integration for GraphRAG, and managed backups with high availability.</p>
+</section>
+
+<!-- CLEANUP & TROUBLESHOOTING -->
+<section class="mod" id="cleanup">
+<h2>Cleanup</h2>
+<p>When you're done, remove all deployed resources:</p>
+<pre><code>cd deployment
+cdk destroy</code></pre>
+<p>Confirm the stack deletion. All AgentCore Runtime agents, Gateway registrations, Neptune clusters (if deployed), and IAM roles will be removed.</p>
+</section>
+
+<section class="mod" id="troubleshooting">
+<h2>Troubleshooting</h2>
+<div class="tw"><table>
+<thead><tr><th>Issue</th><th>Solution</th></tr></thead>
+<tbody>
+<tr><td><code>AccessDeniedException</code> on Bedrock calls</td><td>Verify model access is enabled in Bedrock console for your region</td></tr>
+<tr><td><code>Address already in use</code> on port 8001</td><td><code>lsof -i :8001</code> then <code>kill &lt;PID&gt;</code>, or change port</td></tr>
+<tr><td>Tools not invoked by agent</td><td>Verify @tool decorator is present and tool is in <code>tools=[...]</code> list</td></tr>
+<tr><td>No traces in CloudWatch</td><td>Wait 2-3 min; verify Transaction Search is enabled</td></tr>
+<tr><td>CDK deploy fails</td><td>Run <code>cdk bootstrap</code> first; verify AWS credentials</td></tr>
+<tr><td>Agent returns empty response</td><td>Check system prompt is set; verify Bedrock credentials and model ID</td></tr>
+<tr><td><code>ModuleNotFoundError</code></td><td>Run <code>pip install -e .</code> or <code>uv sync</code> from project root</td></tr>
+<tr><td>CLI can't connect to agent</td><td>Ensure local agent is running before starting cli.py</td></tr>
+<tr><td>NetworkX import error</td><td>Run <code>pip install networkx</code> or verify pyproject.toml</td></tr>
+<tr><td>Neptune connection timeout</td><td>Ensure VPC security group allows inbound on port 8182</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<!-- WHAT YOU BUILT -->
+<section class="mod" id="summary">
+<h2>What You Built</h2>
+
+<h3>The Business Scenario — Delivered</h3>
+<p>Remember Alex Johnson from the beginning? Here's what your agent now handles:</p>
+<div class="dia"><pre><code>Customer: "My connection in Dallas is delayed.
+           What are my rebooking options to get to Chicago?"
+
+Agent thinking:
+  → get_flight_status("AA456", "2025-07-15") → Delayed, arrives 16:30
+  → get_flight_status("AA789", "2025-07-15") → Departs 15:45, missed
+  → find_connections("MIA", "ORD", exclude_hub="DFW") → 2 alternatives
+  → check_seat_availability("AA912") → 3 economy seats available
+  → check_seat_availability("AA234") → 5 economy seats available
+
+Agent: "Your flight AA456 is delayed 2 hours, so you'll miss your
+AA789 connection in Dallas. Here are your options:
+
+  1. AA912 — Direct MIA→ORD, departs 17:00 (3 economy seats)
+  2. AA234 + AA567 — Via Charlotte: MIA→CLT 16:30,
+     CLT→ORD 19:00 (5 seats available)
+
+Would you like me to rebook you on either option?"</code></pre></div>
+<p>That's GenAI reasoning + knowledge graph traversal + real-time data — working together in a single conversational turn.</p>
+
+<h3>The Architecture — Summarized</h3>
+<div class="dia"><pre><code>┌─────────────────────────────────────────────────────────────┐
+│                    What You Built                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Planning (Kiro Spec Workflow)                               │
+│  ┌────────────┐  ┌──────────┐  ┌───────────┐              │
+│  │Requirements│→ │  Design  │→ │   Tasks   │              │
+│  └────────────┘  └──────────┘  └───────────┘              │
+│                                                              │
+│  Agent Logic (unchanged across environments)                 │
+│  ┌────────┐  ┌───────┐  ┌─────────────┐                   │
+│  │agent.py│→ │tools.py│→ │graph_client │                   │
+│  └────────┘  └───────┘  └─────────────┘                   │
+│                                                              │
+│  Local Development          Cloud Deployment                 │
+│  ┌──────────────┐          ┌───────────────────┐           │
+│  │FastAPI/uvicorn│          │ AgentCore Runtime  │           │
+│  │NetworkX graph │          │ Neptune (optional) │           │
+│  │CLI testing    │          │ Gateway governance │           │
+│  └──────────────┘          │ CloudWatch traces  │           │
+│                             └───────────────────┘           │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘</code></pre></div>
+
+<h3>Key Takeaways</h3>
+<ol>
+<li><strong>Separation of concerns scales</strong> — The same pattern (abstraction layer + swappable backend) applies to compute <em>and</em> data. Agent logic never changes.</li>
+<li><strong>Knowledge graphs enable reasoning flat queries can't</strong> — A direct flight search finds MIA→ORD. A graph traversal discovers MIA→CLT→ORD when DFW is disrupted.</li>
+<li><strong>Spec-driven development keeps you aligned</strong> — Requirements captured the scenario up front. Design mapped it to tools and graph structure. Tasks broke it into buildable units.</li>
+<li><strong>Observability closes the loop</strong> — You can see exactly which tool calls happened, how long each took, and where to optimize.</li>
+<li><strong>Local → Cloud is a configuration change, not a rewrite</strong> — Same agent, same tools, same graph queries. Different infrastructure underneath.</li>
+</ol>
+</section>
+
+<!-- NEXT STEPS -->
+<section class="mod" id="next-steps">
+<h2>Next Steps</h2>
+<ul>
+<li>Explore the <a href="https://strandsagents.com">Strands SDK documentation</a> for advanced patterns (multi-agent, agents-as-tools, streaming)</li>
+<li>Review <a href="https://docs.aws.amazon.com/bedrock-agentcore/">AgentCore documentation</a> for Memory, Identity, and Browser capabilities</li>
+<li>Try adding custom OpenTelemetry spans for fine-grained observability</li>
+<li>Build a production agent with real data sources replacing the JSON store</li>
+</ul>
+</section>
+
+</div><!-- end .content -->
+</main>
+
+<!-- SCROLL SPY JS -->
+<script>
+(function(){
+  const links = document.querySelectorAll('.nav-i');
+  const sections = [];
+  links.forEach(function(l){
+    const id = l.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) sections.push({el:el, link:l});
+  });
+  function onScroll(){
+    const scrollY = window.scrollY + 100;
+    let current = sections[0];
+    for(let i = 0; i < sections.length; i++){
+      if(sections[i].el.offsetTop <= scrollY){
+        current = sections[i];
+      }
+    }
+    links.forEach(function(l){l.classList.remove('active')});
+    if(current) current.link.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
