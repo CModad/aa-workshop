@@ -1,0 +1,35 @@
+{
+  "airports": [
+    {"code": "DFW", "name": "Dallas/Fort Worth International"},
+    {"code": "CLT", "name": "Charlotte Douglas International"},
+    {"code": "MIA", "name": "Miami International"},
+    {"code": "ORD", "name": "O'Hare International"},
+    {"code": "PHX", "name": "Phoenix Sky Harbor"},
+    {"code": "LAX", "name": "Los Angeles International"},
+    {"code": "JFK", "name": "John F. Kennedy International"},
+    {"code": "PHL", "name": "Philadelphia International"}
+  ],
+  "routes": [
+    {"origin": "MIA", "destination": "DFW", "flight_number": "AA456", "departure_time": "10:30", "arrival_time": "14:30", "status": "delayed", "date": "2025-07-15"},
+    {"origin": "DFW", "destination": "ORD", "flight_number": "AA789", "departure_time": "15:45", "arrival_time": "18:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "MIA", "destination": "ORD", "flight_number": "AA912", "departure_time": "17:00", "arrival_time": "20:15", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "MIA", "destination": "CLT", "flight_number": "AA234", "departure_time": "11:00", "arrival_time": "13:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "CLT", "destination": "ORD", "flight_number": "AA567", "departure_time": "14:30", "arrival_time": "16:45", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "DFW", "destination": "LAX", "flight_number": "AA101", "departure_time": "08:00", "arrival_time": "10:15", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "LAX", "destination": "DFW", "flight_number": "AA102", "departure_time": "12:30", "arrival_time": "17:00", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "JFK", "destination": "MIA", "flight_number": "AA205", "departure_time": "07:15", "arrival_time": "10:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "ORD", "destination": "PHX", "flight_number": "AA310", "departure_time": "09:00", "arrival_time": "11:45", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "PHX", "destination": "DFW", "flight_number": "AA411", "departure_time": "13:00", "arrival_time": "17:15", "status": "delayed", "date": "2025-07-15"},
+    {"origin": "CLT", "destination": "JFK", "flight_number": "AA520", "departure_time": "16:00", "arrival_time": "18:15", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "DFW", "destination": "JFK", "flight_number": "AA615", "departure_time": "06:30", "arrival_time": "10:45", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "PHL", "destination": "CLT", "flight_number": "AA718", "departure_time": "11:30", "arrival_time": "13:45", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "MIA", "destination": "PHL", "flight_number": "AA825", "departure_time": "14:00", "arrival_time": "17:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "LAX", "destination": "ORD", "flight_number": "AA930", "departure_time": "08:45", "arrival_time": "14:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "ORD", "destination": "DFW", "flight_number": "AA1042", "departure_time": "19:00", "arrival_time": "21:30", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "DFW", "destination": "CLT", "flight_number": "AA1155", "departure_time": "10:00", "arrival_time": "13:45", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "PHL", "destination": "ORD", "flight_number": "AA1590", "departure_time": "07:00", "arrival_time": "09:15", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "CLT", "destination": "MIA", "flight_number": "AA1480", "departure_time": "18:30", "arrival_time": "21:00", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "MIA", "destination": "JFK", "flight_number": "AA330", "departure_time": "12:00", "arrival_time": "15:15", "status": "on_time", "date": "2025-07-15"},
+    {"origin": "PHX", "destination": "LAX", "flight_number": "AA1371", "departure_time": "15:00", "arrival_time": "16:15", "status": "boarding", "date": "2025-07-15"}
+  ]
+}

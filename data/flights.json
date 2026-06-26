@@ -1,0 +1,261 @@
+{
+  "flights": {
+    "AA456_2025-07-15": {
+      "flight_number": "AA456",
+      "date": "2025-07-15",
+      "origin": "MIA",
+      "destination": "DFW",
+      "departure_time": "10:30",
+      "arrival_time": "14:30",
+      "gate": "B12",
+      "status": "delayed",
+      "delay_minutes": 120,
+      "actual_arrival": "16:30"
+    },
+    "AA789_2025-07-15": {
+      "flight_number": "AA789",
+      "date": "2025-07-15",
+      "origin": "DFW",
+      "destination": "ORD",
+      "departure_time": "15:45",
+      "arrival_time": "18:30",
+      "gate": "C22",
+      "status": "on_time"
+    },
+    "AA912_2025-07-15": {
+      "flight_number": "AA912",
+      "date": "2025-07-15",
+      "origin": "MIA",
+      "destination": "ORD",
+      "departure_time": "17:00",
+      "arrival_time": "20:15",
+      "gate": "D8",
+      "status": "on_time"
+    },
+    "AA234_2025-07-15": {
+      "flight_number": "AA234",
+      "date": "2025-07-15",
+      "origin": "MIA",
+      "destination": "CLT",
+      "departure_time": "11:00",
+      "arrival_time": "13:30",
+      "gate": "A4",
+      "status": "on_time"
+    },
+    "AA567_2025-07-15": {
+      "flight_number": "AA567",
+      "date": "2025-07-15",
+      "origin": "CLT",
+      "destination": "ORD",
+      "departure_time": "14:30",
+      "arrival_time": "16:45",
+      "gate": "B7",
+      "status": "on_time"
+    },
+    "AA101_2025-07-15": {
+      "flight_number": "AA101",
+      "date": "2025-07-15",
+      "origin": "DFW",
+      "destination": "LAX",
+      "departure_time": "08:00",
+      "arrival_time": "10:15",
+      "gate": "A12",
+      "status": "on_time"
+    },
+    "AA102_2025-07-15": {
+      "flight_number": "AA102",
+      "date": "2025-07-15",
+      "origin": "LAX",
+      "destination": "DFW",
+      "departure_time": "12:30",
+      "arrival_time": "17:00",
+      "gate": "T4-22",
+      "status": "on_time"
+    },
+    "AA205_2025-07-15": {
+      "flight_number": "AA205",
+      "date": "2025-07-15",
+      "origin": "JFK",
+      "destination": "MIA",
+      "departure_time": "07:15",
+      "arrival_time": "10:30",
+      "gate": "B34",
+      "status": "on_time"
+    },
+    "AA310_2025-07-15": {
+      "flight_number": "AA310",
+      "date": "2025-07-15",
+      "origin": "ORD",
+      "destination": "PHX",
+      "departure_time": "09:00",
+      "arrival_time": "11:45",
+      "gate": "K8",
+      "status": "on_time"
+    },
+    "AA411_2025-07-15": {
+      "flight_number": "AA411",
+      "date": "2025-07-15",
+      "origin": "PHX",
+      "destination": "DFW",
+      "departure_time": "13:00",
+      "arrival_time": "17:15",
+      "gate": "D3",
+      "status": "delayed",
+      "delay_minutes": 45
+    },
+    "AA520_2025-07-15": {
+      "flight_number": "AA520",
+      "date": "2025-07-15",
+      "origin": "CLT",
+      "destination": "JFK",
+      "departure_time": "16:00",
+      "arrival_time": "18:15",
+      "gate": "C11",
+      "status": "on_time"
+    },
+    "AA615_2025-07-15": {
+      "flight_number": "AA615",
+      "date": "2025-07-15",
+      "origin": "DFW",
+      "destination": "JFK",
+      "departure_time": "06:30",
+      "arrival_time": "10:45",
+      "gate": "A2",
+      "status": "on_time"
+    },
+    "AA718_2025-07-15": {
+      "flight_number": "AA718",
+      "date": "2025-07-15",
+      "origin": "PHL",
+      "destination": "CLT",
+      "departure_time": "11:30",
+      "arrival_time": "13:45",
+      "gate": "F6",
+      "status": "on_time"
+    },
+    "AA825_2025-07-15": {
+      "flight_number": "AA825",
+      "date": "2025-07-15",
+      "origin": "MIA",
+      "destination": "PHL",
+      "departure_time": "14:00",
+      "arrival_time": "17:30",
+      "gate": "D12",
+      "status": "on_time"
+    },
+    "AA930_2025-07-15": {
+      "flight_number": "AA930",
+      "date": "2025-07-15",
+      "origin": "LAX",
+      "destination": "ORD",
+      "departure_time": "08:45",
+      "arrival_time": "14:30",
+      "gate": "T5-8",
+      "status": "on_time"
+    },
+    "AA1042_2025-07-15": {
+      "flight_number": "AA1042",
+      "date": "2025-07-15",
+      "origin": "ORD",
+      "destination": "DFW",
+      "departure_time": "19:00",
+      "arrival_time": "21:30",
+      "gate": "H14",
+      "status": "on_time"
+    },
+    "AA1155_2025-07-15": {
+      "flight_number": "AA1155",
+      "date": "2025-07-15",
+      "origin": "DFW",
+      "destination": "CLT",
+      "departure_time": "10:00",
+      "arrival_time": "13:45",
+      "gate": "C4",
+      "status": "on_time"
+    },
+    "AA1268_2025-07-15": {
+      "flight_number": "AA1268",
+      "date": "2025-07-15",
+      "origin": "JFK",
+      "destination": "LAX",
+      "departure_time": "09:30",
+      "arrival_time": "13:00",
+      "gate": "B8",
+      "status": "cancelled"
+    },
+    "AA1371_2025-07-15": {
+      "flight_number": "AA1371",
+      "date": "2025-07-15",
+      "origin": "PHX",
+      "destination": "LAX",
+      "departure_time": "15:00",
+      "arrival_time": "16:15",
+      "gate": "A6",
+      "status": "boarding"
+    },
+    "AA1480_2025-07-15": {
+      "flight_number": "AA1480",
+      "date": "2025-07-15",
+      "origin": "CLT",
+      "destination": "MIA",
+      "departure_time": "18:30",
+      "arrival_time": "21:00",
+      "gate": "E9",
+      "status": "on_time"
+    },
+    "AA1590_2025-07-15": {
+      "flight_number": "AA1590",
+      "date": "2025-07-15",
+      "origin": "PHL",
+      "destination": "ORD",
+      "departure_time": "07:00",
+      "arrival_time": "09:15",
+      "gate": "C3",
+      "status": "on_time"
+    }
+  },
+  "seats": {
+    "AA456": {"first": {"total": 8, "available": 2, "seats": ["1A", "2F"]}, "business": {"total": 24, "available": 5, "seats": ["5A", "5B", "6C", "7D", "8A"]}, "economy": {"total": 150, "available": 34}},
+    "AA789": {"first": {"total": 8, "available": 1, "seats": ["3A"]}, "business": {"total": 24, "available": 3, "seats": ["9B", "10A", "11C"]}, "economy": {"total": 150, "available": 28}},
+    "AA912": {"first": {"total": 8, "available": 1, "seats": ["4F"]}, "business": {"total": 24, "available": 3, "seats": ["6A", "7B", "8C"]}, "economy": {"total": 150, "available": 12}},
+    "AA234": {"first": {"total": 8, "available": 3, "seats": ["1A", "2A", "3F"]}, "business": {"total": 24, "available": 8, "seats": ["5A", "5B", "6A", "6B", "7A", "7B", "8A", "8B"]}, "economy": {"total": 150, "available": 45}},
+    "AA567": {"first": {"total": 8, "available": 2, "seats": ["1F", "2A"]}, "business": {"total": 24, "available": 5, "seats": ["4A", "4B", "5C", "6D", "7A"]}, "economy": {"total": 150, "available": 22}},
+    "AA101": {"first": {"total": 8, "available": 0, "seats": []}, "business": {"total": 24, "available": 2, "seats": ["10C", "11A"]}, "economy": {"total": 150, "available": 18}},
+    "AA615": {"first": {"total": 16, "available": 4, "seats": ["1A", "1F", "2A", "2F"]}, "business": {"total": 36, "available": 10}, "economy": {"total": 180, "available": 55}},
+    "AA1268": {"first": {"total": 16, "available": 16, "seats": []}, "business": {"total": 36, "available": 36}, "economy": {"total": 180, "available": 180}},
+    "AA930": {"first": {"total": 8, "available": 1, "seats": ["2A"]}, "business": {"total": 24, "available": 4}, "economy": {"total": 150, "available": 30}}
+  },
+  "passengers": {
+    "AXJN42": {
+      "pnr": "AXJN42",
+      "name": "Alex Johnson",
+      "itinerary": [
+        {"flight": "AA456", "date": "2025-07-15", "seat": "12A", "class": "economy"},
+        {"flight": "AA789", "date": "2025-07-15", "seat": "15C", "class": "economy"}
+      ]
+    },
+    "BRM891": {
+      "pnr": "BRM891",
+      "name": "Maria Rodriguez",
+      "itinerary": [
+        {"flight": "AA205", "date": "2025-07-15", "seat": "8B", "class": "business"}
+      ]
+    },
+    "CTW562": {
+      "pnr": "CTW562",
+      "name": "Tom Wilson",
+      "itinerary": [
+        {"flight": "AA101", "date": "2025-07-15", "seat": "22F", "class": "economy"},
+        {"flight": "AA310", "date": "2025-07-15", "seat": "14A", "class": "economy"}
+      ]
+    },
+    "DKP734": {
+      "pnr": "DKP734",
+      "name": "Karen Park",
+      "itinerary": [
+        {"flight": "AA615", "date": "2025-07-15", "seat": "1A", "class": "first"},
+        {"flight": "AA1268", "date": "2025-07-15", "seat": "3A", "class": "first"}
+      ]
+    }
+  }
+}
