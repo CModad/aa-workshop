@@ -159,18 +159,23 @@ This was generated from the design by Kiro. It breaks the work into 15 ordered t
 - Property-based tests are interleaved with implementation (test what you build, when you build it)
 - Checkpoints ensure we verify before moving on
 
-### 2.4 Execute Scaffolding Tasks with Kiro
+### 2.4 Understanding the Scaffolding (already done for you)
 
-Now let's see Kiro generate code. In the tasks panel:
+In a real project, this is where you'd use Kiro to generate the project skeleton. You would click **Start task** on Tasks 1.1–2.2 and Kiro would create:
 
-1. Click **Start task** on Task 1.1 (pyproject.toml) — Kiro creates the dependency file
-2. Click **Start task** on Task 1.2 (directory structure) — Kiro creates the folders
-3. Click **Start task** on Task 2.1 (flights.json) — Kiro generates the test data including the Dallas disruption scenario
-4. Click **Start task** on Task 2.2 (routes.json) — Kiro generates the route graph
+- `pyproject.toml` — pinned dependencies
+- Directory structure (`src/`, `data/`, `tests/`, `deployment/`)
+- `data/flights.json` — 21 flights with the Dallas disruption scenario
+- `data/routes.json` — airport route graph (8 hubs, 21 edges)
 
-Review each generated file. These are the **infrastructure** files that support the learning — not the learning itself.
+**For this workshop, we've pre-generated these files** so you can jump straight into writing agent code. But notice: the data files include the exact disruption scenario (Alex Johnson, PNR AXJN42, AA456 delayed → missed AA789 connection) because the task was derived from the requirements.
 
-**Key takeaway:** In 5 minutes, Kiro generated a project skeleton with realistic test data, all traced back to the requirements. This is the acceleration that spec-driven development provides.
+Take a quick look:
+```bash
+cat data/routes.json | python -m json.tool | head -20
+```
+
+**Key takeaway:** In your own projects, Kiro generates this scaffolding from the spec in minutes — no manual JSON authoring, no copying boilerplate. The requirements drive everything.
 
 ---
 

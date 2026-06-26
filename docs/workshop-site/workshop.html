@@ -313,18 +313,19 @@ aws bedrock list-foundation-models --query "modelSummaries[?contains(modelId, 'n
 <li>Checkpoints ensure we verify before moving on</li>
 </ul>
 
-<h3>2.4 Execute Scaffolding Tasks with Kiro</h3>
-<p>Now let's see Kiro generate code. In the tasks panel:</p>
-<ol>
-<li>Click <strong>Start task</strong> on Task 1.1 (pyproject.toml) — Kiro creates the dependency file</li>
-<li>Click <strong>Start task</strong> on Task 1.2 (directory structure) — Kiro creates the folders</li>
-<li>Click <strong>Start task</strong> on Task 2.1 (flights.json) — Kiro generates the test data including the Dallas disruption scenario</li>
-<li>Click <strong>Start task</strong> on Task 2.2 (routes.json) — Kiro generates the route graph</li>
-</ol>
-<p>Review each generated file. These are the <strong>infrastructure</strong> files that support the learning — not the learning itself.</p>
-
+<h3>2.4 Understanding the Scaffolding (already done for you)</h3>
+<p>In a real project, this is where you'd use Kiro to generate the project skeleton. You would click <strong>Start task</strong> on Tasks 1.1–2.2 and Kiro would create:</p>
+<ul>
+<li><code>pyproject.toml</code> — pinned dependencies</li>
+<li>Directory structure (<code>src/</code>, <code>data/</code>, <code>tests/</code>, <code>deployment/</code>)</li>
+<li><code>data/flights.json</code> — 21 flights with the Dallas disruption scenario</li>
+<li><code>data/routes.json</code> — airport route graph (8 hubs, 21 edges)</li>
+</ul>
+<p><strong>For this workshop, we've pre-generated these files</strong> so you can jump straight into writing agent code. But notice: the data files include the exact disruption scenario (Alex Johnson, PNR AXJN42, AA456 delayed → missed AA789 connection) because the task was derived from the requirements.</p>
+<p>Take a quick look:</p>
+<pre><code>cat data/routes.json | python -m json.tool | head -20</code></pre>
 <blockquote>
-<p><strong>Key takeaway:</strong> In 5 minutes, Kiro generated a project skeleton with realistic test data, all traced back to the requirements. This is the acceleration that spec-driven development provides.</p>
+<p><strong>Key takeaway:</strong> In your own projects, Kiro generates this scaffolding from the spec in minutes — no manual JSON authoring, no copying boilerplate. The requirements drive everything.</p>
 </blockquote>
 </section>
 
