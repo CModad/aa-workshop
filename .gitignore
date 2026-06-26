@@ -1,3 +1,27 @@
 *.DS_Store
 __pycache__/
 .env
+
+# Workshop implementation files (participants create these during the workshop)
+src/agent.py
+src/tools.py
+src/graph_client.py
+src/data_store.py
+src/entrypoint_local.py
+src/entrypoint_aws.py
+src/rebooking_agent.py
+src/rebooking_tools.py
+src/entrypoint_rebooking.py
+cli.py
+deployment/cdk_app.py
+tests/unit/*.py
+tests/property/*.py
+tests/integration/*.py
+!tests/**/__init__.py
+
+# Python build artifacts
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
