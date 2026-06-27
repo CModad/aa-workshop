@@ -6,8 +6,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
 
 ## Tasks
 
-- [ ] 1. Project scaffolding and dependencies
-  - [ ] 1.1 Create pyproject.toml with pinned dependencies
+- [x] 1. Project scaffolding and dependencies
+  - [x] 1.1 Create pyproject.toml with pinned dependencies
     - Define project metadata (name: aa-workshop-agent, python >=3.11)
     - Pin dependencies: strands-agents, strands-agents-bedrock, fastapi, uvicorn, networkx, httpx, boto3
     - Pin dev dependencies: pytest, hypothesis, pytest-asyncio
@@ -15,13 +15,13 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Include `[tool.pytest.ini_options]` with markers for integration tests
     - _Requirements: 8.3, 10.4_
 
-  - [ ] 1.2 Create directory structure and __init__.py files
+  - [x] 1.2 Create directory structure and __init__.py files
     - Create directories: src/, data/, deployment/, tests/property/, tests/unit/, tests/integration/
     - Add empty __init__.py in src/, tests/, tests/property/, tests/unit/, tests/integration/
     - _Requirements: 10.1, 10.2_
 
-- [ ] 2. Data layer — flight data and route graph files
-  - [ ] 2.1 Create data/flights.json with flight, seat, and passenger data
+- [x] 2. Data layer — flight data and route graph files
+  - [x] 2.1 Create data/flights.json with flight, seat, and passenger data
     - Include 20+ flights across 8 AA hubs (DFW, CLT, MIA, ORD, PHX, LAX, JFK, PHL) using AA#### format
     - Include status variety: on_time, delayed, cancelled, boarding
     - Include seat data for each flight (first, business, economy classes with realistic counts)
@@ -30,7 +30,7 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Include at least 3 multi-leg itineraries routing through DFW
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.6, 3.8, 3.10, 13.1_
 
-  - [ ] 2.2 Create data/routes.json with airport nodes and route edges
+  - [x] 2.2 Create data/routes.json with airport nodes and route edges
     - Define 8 airport nodes (code, name) for all AA hubs
     - Define route edges with flight_number, departure_time, arrival_time, status, date attributes
     - Include routes enabling MIA→CLT→ORD, MIA→DFW→ORD, MIA→ORD direct paths
@@ -38,8 +38,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Include enough edges for multi-hop alternatives avoiding DFW
     - _Requirements: 3.7, 3.8, 3.9, 3.10, 10.7, 12.3, 13.1_
 
-- [ ] 3. Data store module
-  - [ ] 3.1 Implement src/data_store.py — JSON loader and in-memory access
+- [x] 3. Data store module
+  - [x] 3.1 Implement src/data_store.py — JSON loader and in-memory access
     - Load data/flights.json at module import time (fail fast on missing/malformed file)
     - Expose FLIGHTS, SEATS, PASSENGERS dictionaries for tool access
     - Provide helper functions: get_flight(flight_number, date), search_flights(origin, dest, date), get_seats(flight_number), get_passenger(pnr)
@@ -53,8 +53,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Verify all seat records have first/business/economy with positive totals
     - Verify all passenger records have pnr, name, non-empty itinerary
 
-- [ ] 4. Graph client module
-  - [ ] 4.1 Implement src/graph_client.py — NetworkX graph abstraction
+- [x] 4. Graph client module
+  - [x] 4.1 Implement src/graph_client.py — NetworkX graph abstraction
     - Load data/routes.json at startup, build NetworkX DiGraph (airports as nodes, routes as edges)
     - Implement find_connections(origin, destination, max_stops=1) using nx.all_simple_paths
     - Implement find_alternatives(origin, destination, exclude_hub, max_stops=1) filtering paths through excluded hub
@@ -70,8 +70,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - **Validates: Requirements 13.4**
     - For origin/dest with alternatives, verify no intermediate stop passes through excluded hub
 
-- [ ] 5. Custom tools
-  - [ ] 5.1 Implement src/tools.py — core @tool functions
+- [x] 5. Custom tools
+  - [x] 5.1 Implement src/tools.py — core @tool functions
     - Implement get_flight_status(flight_number, date) with @tool decorator and docstring
     - Implement search_flights(origin, destination, date) with @tool decorator and docstring
     - Implement check_seat_availability(flight_number) with @tool decorator and docstring
@@ -94,11 +94,11 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - **Validates: Requirements 2.5**
     - For invalid inputs (empty, non-AA prefix, malformed dates), verify "error" key in response
 
-- [ ] 6. Checkpoint — Verify data layer and tools
+- [x] 6. Checkpoint — Verify data layer and tools
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. Agent definition
-  - [ ] 7.1 Implement src/agent.py — Strands Agent with system prompt and tools
+- [x] 7. Agent definition
+  - [x] 7.1 Implement src/agent.py — Strands Agent with system prompt and tools
     - Import BedrockModel with model_id="us.amazon.nova-pro-v1:0"
     - Define system prompt for Flight Operations agent (concise, domain-specific)
     - Create Agent instance with model, system_prompt, and tools list [get_flight_status, search_flights, check_seat_availability, find_connections]
@@ -112,8 +112,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Verify agent.py contains no RUNTIME_MODE conditionals
     - _Requirements: 1.6, 9.1_
 
-- [ ] 8. Local entrypoint
-  - [ ] 8.1 Implement src/entrypoint_local.py — FastAPI wrapper
+- [x] 8. Local entrypoint
+  - [x] 8.1 Implement src/entrypoint_local.py — FastAPI wrapper
     - Import agent handler from agent.py
     - Define POST /invocations endpoint accepting {"prompt": "..."} and returning {"response": "..."}
     - Define GET /ping endpoint returning {"status": "healthy"}
@@ -126,8 +126,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Verify it does not import anything from entrypoint_aws.py
     - _Requirements: 9.5_
 
-- [ ] 9. AWS entrypoint
-  - [ ] 9.1 Implement src/entrypoint_aws.py — BedrockAgentCoreApp wrapper
+- [x] 9. AWS entrypoint
+  - [x] 9.1 Implement src/entrypoint_aws.py — BedrockAgentCoreApp wrapper
     - Import agent handler from agent.py
     - Create BedrockAgentCoreApp instance
     - Register @app.entrypoint handler accepting payload and returning response text
@@ -140,8 +140,8 @@ This plan implements the American Airlines Workshop Demo Agent — a Strands SDK
     - Verify it does not import anything from entrypoint_local.py
     - _Requirements: 9.5_
 
-- [ ] 10. CLI interface
-  - [ ] 10.1 Implement cli.py — interactive terminal loop
+- [x] 10. CLI interface
+  - [x] 10.1 Implement cli.py — interactive terminal loop
     - Provide interactive input loop (prompt → send HTTP POST to localhost:8001/invocations → display response)
     - Display tool invocation details (tool name and parameters) before final response
     - Handle "exit" and "quit" commands to terminate gracefully

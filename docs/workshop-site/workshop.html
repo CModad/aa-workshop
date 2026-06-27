@@ -616,13 +616,15 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8001)</code></pre>
 
 <h3>4.2 Start the Agent Locally</h3>
-<pre><code>RUNTIME_MODE=local python -m src.entrypoint_local</code></pre>
+<pre><code>source .venv/bin/activate  # activate venv in this terminal
+python3 -m src.entrypoint_local</code></pre>
 <p>You should see:</p>
 <pre><code>INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)</code></pre>
 
 <h3>4.3 Test with the CLI</h3>
-<p>In a new terminal:</p>
-<pre><code>python cli.py</code></pre>
+<p>In a new terminal (remember to activate the venv):</p>
+<pre><code>source .venv/bin/activate
+python3 cli.py</code></pre>
 <p>Try these queries:</p>
 <pre><code>&gt; What's the status of flight AA456 on 2025-07-15?
 &gt; Find me flights from DFW to JFK tomorrow

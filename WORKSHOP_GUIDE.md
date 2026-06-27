@@ -472,7 +472,8 @@ if __name__ == "__main__":
 ### 4.2 Start the Agent Locally
 
 ```bash
-RUNTIME_MODE=local python -m src.entrypoint_local
+source .venv/bin/activate  # activate venv in this terminal
+python3 -m src.entrypoint_local
 ```
 
 You should see:
@@ -482,10 +483,11 @@ INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 
 ### 4.3 Test with the CLI
 
-In a new terminal:
+In a new terminal (remember to activate the venv):
 
 ```bash
-python cli.py
+source .venv/bin/activate
+python3 cli.py
 ```
 
 Try these queries:
