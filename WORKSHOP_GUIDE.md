@@ -113,6 +113,8 @@ aws bedrock list-foundation-models --query "modelSummaries[?contains(modelId, 'n
 
 You should see your account ID and at least one Nova model listed.
 
+**✓ Checkpoint:** Run `python3 validate.py --module 1` to confirm your environment is ready.
+
 ---
 
 ## Module 2: Spec-Driven Planning (30 min)
@@ -176,6 +178,8 @@ cat data/routes.json | python -m json.tool | head -20
 ```
 
 **Key takeaway:** In your own projects, Kiro generates this scaffolding from the spec in minutes — no manual JSON authoring, no copying boilerplate. The requirements drive everything.
+
+**✓ Checkpoint:** Run `python3 validate.py --module 2` to confirm spec files are in place.
 
 ---
 
@@ -429,6 +433,8 @@ agent = Agent(
 
 **Note:** This file contains zero conditional logic about deployment mode. It's imported unchanged by both entrypoints.
 
+**✓ Checkpoint:** Run `python3 validate.py --module 3` to confirm data store, graph, tools, and agent are all wired up correctly.
+
 ---
 
 ## Module 4: Test Locally (20 min)
@@ -510,6 +516,8 @@ curl -X POST http://localhost:8001/invocations \
   -d '{"prompt": "What is the status of flight AA1234 on 2025-07-15?"}'
 ```
 
+**✓ Checkpoint:** Run `python3 validate.py --module 4` to confirm entrypoint and CLI files are correct.
+
 ---
 
 ## Module 5: Run Tests (15 min)
@@ -531,6 +539,8 @@ Open `tests/test_tools.py` and observe:
 - Tools are tested as plain Python functions (no agent needed)
 - Edge cases are covered (invalid flight numbers, missing data)
 - Return structures are validated
+
+**✓ Checkpoint:** All tests passing means your tools and data are solid. You're ready to deploy.
 
 ---
 
@@ -602,6 +612,8 @@ aws bedrock-agentcore invoke-agent-runtime \
 ```
 
 You should get the same quality response as your local agent — same code, different transport.
+
+**✓ Checkpoint:** Run `python3 validate.py --module 6` to confirm AWS entrypoint structure is correct.
 
 ---
 

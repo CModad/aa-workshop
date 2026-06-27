@@ -266,6 +266,7 @@ pip install -e .</code></pre>
 <pre><code>aws sts get-caller-identity
 aws bedrock list-foundation-models --query "modelSummaries[?contains(modelId, 'nova')]" --output table</code></pre>
 <p>You should see your account ID and at least one Nova model listed.</p>
+<blockquote><p><strong>✓ Checkpoint:</strong> Run <code>python3 validate.py --module 1</code> to confirm your environment is ready.</p></blockquote>
 </section>
 
 <!-- MODULE 2 -->
@@ -327,6 +328,7 @@ aws bedrock list-foundation-models --query "modelSummaries[?contains(modelId, 'n
 <blockquote>
 <p><strong>Key takeaway:</strong> In your own projects, Kiro generates this scaffolding from the spec in minutes — no manual JSON authoring, no copying boilerplate. The requirements drive everything.</p>
 </blockquote>
+<blockquote><p><strong>✓ Checkpoint:</strong> Run <code>python3 validate.py --module 2</code> to confirm spec files are in place.</p></blockquote>
 </section>
 
 <!-- MODULE 3 -->
@@ -580,6 +582,7 @@ agent = Agent(
     system_prompt=SYSTEM_PROMPT,
 )</code></pre>
 <p><strong>Note:</strong> This file contains zero conditional logic about deployment mode. It's imported unchanged by both entrypoints.</p>
+<blockquote><p><strong>✓ Checkpoint:</strong> Run <code>python3 validate.py --module 3</code> to confirm data store, graph, tools, and agent are wired up correctly.</p></blockquote>
 </section>
 
 <!-- MODULE 4 -->
@@ -643,6 +646,7 @@ curl http://localhost:8001/ping
 curl -X POST http://localhost:8001/invocations \
   -H "Content-Type: application/json" \
   -d '{"prompt": "What is the status of flight AA1234 on 2025-07-15?"}'</code></pre>
+<blockquote><p><strong>✓ Checkpoint:</strong> Run <code>python3 validate.py --module 4</code> to confirm entrypoint and CLI files are correct.</p></blockquote>
 </section>
 
 <!-- MODULE 5 -->
@@ -719,6 +723,7 @@ aws bedrock-agentcore invoke-agent-runtime \
   --runtime-session-id "workshop-test-001" \
   --payload '{"prompt": "What flights go from DFW to LAX?"}'</code></pre>
 <p>You should get the same quality response as your local agent — same code, different transport.</p>
+<blockquote><p><strong>✓ Checkpoint:</strong> Run <code>python3 validate.py --module 6</code> to confirm AWS entrypoint structure is correct.</p></blockquote>
 </section>
 
 <!-- MODULE 7 -->
